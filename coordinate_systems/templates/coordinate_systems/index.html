@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+
+{% block title %}
+    My website
+{% endblock %}
+
+{% block content %}
+        <header id="main-navigation">
+            <nav>
+                <ul>
+                {% for system in Coordinate_systems %}
+                    <li><a href="{{ system }}">{{ system|upper }}</a></li>
+                {% endfor %}
+                </ul>
+            </nav>
+        </header>
+    <div class="container">
+        <canvas id="c"></canvas>
+    </div>
+{% endblock %}
+

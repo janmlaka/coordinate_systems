@@ -1,0 +1,51 @@
+html {
+  background-color: aqua;
+}
+
+#plot-container {
+  width: 100%;
+  height: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+#controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+.button {
+  background-color: #04AA6D; 
+  border: none;
+  color: blue;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 4fr;
+  border-radius: 50%;
+}
+
+.form {
+  display: grid;
+}
+
+label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  color: #2D4571;
+}
+
+input {
+  width: 2fr;
+  border: red;
+  color: blue;  
+}
+
+a {
+  text-decoration: none;
+  text-size-adjust: 5px;
+}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    D48/GK
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" type="text/css" href="{% static "app.css" %}">
+{% endblock %}
+
+{% block content %}
+
+{% comment %} {% for content in Links.items %}
+    <li><a href=" {{% url 'D48_GK' content %}} "> {{  link  }} </a></li>
+{% endfor %}   {% endcomment %}
+
+<div class="ContentD48">
+    <div class="D48">
+        <h1><a src="">D48/GK</a></h1>     
+        <p>D48/GK is sometimes reffered to it as the old coordinate system. That's because there is a new one called D96/TM.</p>
+        <img src="{% static 'Drzavna_meja_D48_D96.png' %}">
+        <p>The picture above represents the difference between the coordinate systems D48/GK and D96/TM.</p>
+    </div>
+
+    <div class="Projekcija">
+        {% comment %} Create links to all the titles {% endcomment %}
+        <h3><a src="D48">Gauss-Kreuger's Projection</a></h3> 
+        <img src="{% static 'prehod_3Dv2D.jpg' %}">
+        <p>The picture above shows a basic concept of how we transform 3D coordinates into 2D.</p>
+    </div>
+</div>
+{% endblock %}

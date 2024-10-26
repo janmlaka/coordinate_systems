@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RESULTS</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+{% block content %}
+<pre>{{ text_file.content }}</pre>
+<a href="{% url 'download_text' %}">Results</a>
+
+<div id="plot-container">
+    <div id="plot"></div>
+</div>
+
+<div id="controls">
+    <label for="scale-slider">Adjust Line Length:</label>
+    <input type="range" id="scale-slider" min="0.5" max="100" step="0.1">
+
+    <button id="reset-plot">Reset</button>
+</div>
+
+<a href="{% url 'plot_data' %}?scale_factor=1">Graph</a>
+
+<script>
+    var plot_data = JSON.parse('{{ plot_json | safe }}');
+    Plotly.newPlot('plot', plot_data.data, plot_data.layout);
+
+    // Store original x and y data
+    var originalXData = [];
+    var originalYData = [];
+
+    plot_data.data.forEach(function(trace) {
+        originalXData.push(trace.x ? trace.x.slice() : []);  // Copy x values
+        originalYData.push(trace.y ? trace.y.slice() : []);  // Copy y values
+    });
+
+    function scaleLines(scale) {
+        var plotDiv = document.getElementById('plot');
+
+        // Adjust the length by scaling the difference between the points, not the entire values
+        var newXData = originalXData.map(function(xValues) {
+            var startX = xValues[0];  // Reference point (e.g., starting point of the line)
+            return xValues.map(function(x) { return startX + (x - startX) * scale; });
+        });
+
+        var newYData = originalYData.map(function(yValues) {
+            var startY = yValues[0];  // Reference point
+            return yValues.map(function(y) { return startY + (y - startY) * scale; });
+        });
+
+        // Prepare update for the x and y data
+        var update = {
+            'x': newXData,
+            'y': newYData
+        };
+
+        Plotly.restyle(plotDiv, update);
+    }
+
+    // Get the scale factor from the URL parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var scaleFactor = urlParams.get('scale_factor') || 1;  // Default to 1 if no value is provided
+
+    // Set the slider's value to the current scale factor
+    document.getElementById('scale-slider').value = scaleFactor;
+
+    // Update the plot based on the slider input
+    document.getElementById('scale-slider').addEventListener('input', function() {
+        var scale = this.value;
+        window.location.href = `{% url 'plot_data' %}?scale_factor=${scale}`;  // Reload with scale factor
+    });
+
+    // Reset plot to default scale factor
+    document.getElementById('reset-plot').addEventListener('click', function() {
+        document.getElementById('scale-slider').value = 1;
+        window.location.href = `{% url 'plot_data' %}?scale_factor=1`;  // Reset to original scale
+    });
+
+    // Initial scale setup
+    scaleLines(scaleFactor);
+
+    window.addEventListener('resize', function() {
+        var plotDiv = document.getElementById('plot');
+        Plotly.Plots.resize(plotDiv);
+    });
+</script>
+
+
+
+
+{% endblock %}
+</body>
+</html>

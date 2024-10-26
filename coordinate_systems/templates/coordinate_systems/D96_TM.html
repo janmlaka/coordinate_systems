@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    D96/TM
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" type="text/css" href="{% static "app.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="ContentD96"> 
+        <div class="D96">
+            <h1><a src="">D96/TM</a></h1>
+            <p>D96/TM is sometimes reffered to it as the new coordinate system.</p>
+            <img src="{% static 'Drzavna_meja_D48_D96.png' %}">
+            <p>The picture above represents the difference between the coordinate systems D48/GK and D96/TM.</p>
+        </div>
+    
+        <div class="Projekcija">
+            {% comment %} Create links to all the titles {% endcomment %}
+            <h3><a src="D96">Transverse Mercators's Projection</a></h3> 
+            <img src="{% static 'prehod_3Dv2D.jpg' %}">
+            <p>The picture above shows a basic concept of how we transform 3D coordinates into 2D.</p>
+        </div>
+    </div>
+{% endblock %}

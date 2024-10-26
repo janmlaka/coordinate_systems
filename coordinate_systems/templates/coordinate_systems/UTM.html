@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    UTM 
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" type="text/css" href="{% static "app.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="UTM_CS">
+        <p>This is the coordinate system that NATO uses for military purposes.</p>
+        <img src="{% static 'UTM.png' %}">
+        <p>The width is 6 degrees large and 8 degrees high. Mean while in the previous c.s. the zones are 3x4 degrees large - D48 and D96.</p>
+    </div>
+{% endblock %}

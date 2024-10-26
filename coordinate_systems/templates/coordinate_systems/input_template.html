@@ -1,0 +1,42 @@
+<!-- input_template.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
+</head>
+
+<body>
+{% block content %}
+    <div class="form">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'upload_files' %}">
+            {% csrf_token %}
+            {{ form.D48.label_tag }}
+            {{ form.D48 }}
+            <br>
+            {{ form.D96.label_tag }}
+            {{ form.D96 }}
+            <br>
+            <button type="submit" class="button">Calculate</button>
+        </form>
+    </div>
+    <h1>READ ME</h1>
+    <p>For the website to work properly you have to set in the following files: </p>
+    <p>-D48/GK file</p>
+    <p>-D96/TM file</p>
+    <p>The file with D48/GK coordinates has to meet the next conditions:</p>
+    <p>The coordinates have to be in following order: X Y h</p>
+    <p>The standart deviations also have to be in the following order: X Y h</p>
+    <p>The file with D96/TM coordinates has to meet the next conditions:</p>
+    <p>The coordinates have to be in following order: e n h</p>
+    <p>The standart deviations also have to be in the following order: e n h</p>
+    <p>The heights have to be elipsiod heights.</p>
+    <p>Once you setup the files you may click "Calculate"</p> 
+
+{% endblock %}
+</body>
+</html>
